@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <math.h>
+int is_power_of_two(int n) {
+    return (n > 0) && ((n & (n - 1)) == 0);}
+int main() {
+    int n;
+    double complexity;
+    printf("Enter the size n for an n x n matrix: ");
+    scanf("%d",&n);
+    if (is_power_of_two(n)) {
+        complexity = pow(n, 2.81);
+        printf("Time Complexity of multiplying two %d x %d matrices: %.2f\n", n,n,complexity);}
+	else {
+        printf("Theoretical Value of Time Complexity = O(n^log2(7))\n");}
+    return 0;}
