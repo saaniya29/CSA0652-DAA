@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <math.h>
+int digits(int n) {
+    if (n == 0) return 0;
+    return 1 + digits(n / 10);}
+int armstrong(int n, int pow, int sum) {
+    if (n == 0) return sum;
+    return armstrong(n / 10, pow, sum + powl(n % 10, pow));}
+int main() {
+    int num;
+    printf("Enter a number: ");
+    scanf("%d", &num);
+    int pow = digits(num);
+    if (num == armstrong(num, pow, 0)) printf("Armstrong");
+    else printf("Not Armstrong");
+    return 0;}
