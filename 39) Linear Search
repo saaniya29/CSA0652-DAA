@@ -15,5 +15,5 @@ int main() {
     scanf("%d", &target);
     int index = linearSearch(arr, n, target);
     if (index != -1) { printf("Target element found at index %d.\n", index);}
-	else { printf("Not found in the array.\n", target);}
+	else { printf("Not found in the array.\n");}
     return 0;}
