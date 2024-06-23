@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <limits.h>
+#define MAXN 100
+int n, cost[MAXN][MAXN], result[MAXN], match[MAXN];
+bool assigned[MAXN];
+void initialize() {
+    for (int i = 0; i < n; ++i) {
+        result[i] = -1;
+        assigned[i] = false;
+        match[i] = -1;}}
+bool canAssign(int worker, int task) {
+    return !assigned[task] && (cost[worker][task] == 0);}
+bool tryAssign(int worker) {
+    for (int task = 0; task < n; ++task) {
+        if (canAssign(worker, task)) {
+            assigned[task] = true;
+            if (match[task] == -1 || tryAssign(match[task])) {
+                match[task] = worker;
+                return true;}}}
+    return false;}
+void Assignment() {
+    initialize();
+    for (int worker = 0; worker < n; ++worker) {
+        while (true) {
+            int min_cost = INT_MAX;
+            for (int task = 0; task < n; ++task) {
+                if (!assigned[task] && cost[worker][task] < min_cost) {
+                    min_cost = cost[worker][task];}}
+            for (int task = 0; task < n; ++task) {
+                if (!assigned[task]) {
+                    cost[worker][task] -= min_cost;}}
+            if (tryAssign(worker)) {break;}
+            for (int task = 0; task < n; ++task) {
+                if (assigned[task]) { cost[worker][task] += min_cost;}}}}
+    for (int task = 0; task < n; ++task) {
+        result[match[task]] = task;}}
+void printAssignment() {
+    printf("Worker   Task\n");
+    for (int i = 0; i < n; ++i) {
+        printf("%d        %d\n", i, result[i]);}}
+int main() {
+    printf("Enter number of workers and tasks (n): ");
+    scanf("%d", &n);
+    printf("Enter cost matrix (%dx%d):\n", n, n);
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            scanf("%d", &cost[i][j]);}}
+    Assignment();
+    printf("Optimal Assignment:\n");
+    printAssignment();
+    return 0;}
