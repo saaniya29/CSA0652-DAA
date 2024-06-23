@@ -1,0 +1,26 @@
+#include <stdio.h>
+#define MAX_ITEMS 100
+void containerLoading(int numItems, int weights[], int capacity) {
+    int used[MAX_ITEMS] = {0}, remaining_capacity = capacity, max_weight_index = 0;
+    for (int i = 1; i < numItems; i++) {
+        if (weights[i] > weights[max_weight_index]) {
+            max_weight_index = i;}}
+    for (int i = max_weight_index; i < numItems; i++) {
+        if (weights[i] <= remaining_capacity) {
+            used[i] = 1;
+            remaining_capacity -= weights[i];}}
+    printf("Output:\n");
+    for (int i = 0; i < numItems; i++) {
+        printf("%d ", used[i]);}
+    printf("\n");}
+int main() {
+    int numItems, capacity, weights[MAX_ITEMS];
+    printf("Enter number of items: ");
+    scanf("%d", &numItems);
+    printf("Enter weights of each item:\n");
+    for (int i = 0; i < numItems; i++) {
+        scanf("%d", &weights[i]);}
+    printf("Enter maximum capacity of the container: ");
+    scanf("%d", &capacity);
+    containerLoading(numItems, weights, capacity);
+    return 0;}
